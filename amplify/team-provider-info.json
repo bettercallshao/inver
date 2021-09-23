@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-inver-staging-14845-authRole",
+      "UnauthRoleArn": "arn:aws:iam::164856694397:role/amplify-inver-staging-14845-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::164856694397:role/amplify-inver-staging-14845-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-inver-staging-14845-deployment",
+      "UnauthRoleName": "amplify-inver-staging-14845-unauthRole",
+      "StackName": "amplify-inver-staging-14845",
+      "StackId": "arn:aws:cloudformation:us-east-1:164856694397:stack/amplify-inver-staging-14845/656ab830-1c10-11ec-8109-128222e96d1b",
+      "AmplifyAppId": "d3o3531wi5hzq3"
+    },
+    "categories": {
+      "auth": {
+        "inver": {}
+      }
+    }
+  }
+}
