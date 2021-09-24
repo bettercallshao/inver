@@ -13,6 +13,7 @@ import awsconfig from "./aws-exports";
 
 import useQState from "./useQState";
 import { useEffect, useState } from "react";
+import { uuid } from "uuidv4";
 
 Amplify.configure(awsconfig);
 
@@ -109,7 +110,7 @@ function App() {
             capture="environment"
             onChange={(event) => {
               const file = event.target.files[0];
-              Storage.put(box + "/" + file.name, file, {
+              Storage.put(box + "/" + uuid(), file, {
                 level: "private",
               }).then(pull);
             }}
