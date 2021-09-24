@@ -8,7 +8,6 @@ import {
   AmplifySignUp,
   AmplifySignIn,
   AmplifyS3Image,
-  AmplifyS3ImagePicker,
 } from "@aws-amplify/ui-react";
 import awsconfig from "./aws-exports";
 
