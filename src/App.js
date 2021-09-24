@@ -60,11 +60,12 @@ function App() {
   const [box, setBox] = useQState("box", "");
   const [blobs, setBlobs] = useState([]);
   const pull = () => {
-    Storage.list(box, {
+    Storage.list(box ? box + "/" : "", {
       level: "private",
     }).then(setBlobs);
   };
   useEffect(pull, [box]);
+  const [manual, setManual] = useState("");
   return (
     <AmplifyAuthenticator usernameAlias="email">
       <AmplifySignUp
@@ -85,10 +86,40 @@ function App() {
       />
       <AmplifySignIn slot="sign-in" usernameAlias="email" />
       <AmplifySignOut />
-      <AmplifyS3ImagePicker level="private" path={box} headerTitle="" headerHint="" />
+      <div>
+        <input
+          type="text"
+          onChange={(event) => {
+            setManual(event.target.value);
+          }}
+        />
+        <button
+          className="button"
+          onClick={() => {
+            setBox(manual);
+          }}
+        >
+          Go
+        </button>
+      </div>
+      {box && (
+        <div>
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={(event) => {
+              const file = event.target.files[0];
+              Storage.put(box + "/" + file.name, file, {
+                level: "private",
+              }).then(pull);
+            }}
+          />
+        </div>
+      )}
       <div className="gallery">
-        {blobs.map((blob, idx) => (
-          <Image key={idx} blob={blob} handleDelete={pull}></Image>
+        {blobs.map((blob) => (
+          <Image key={blob.key} blob={blob} handleDelete={pull}></Image>
         ))}
       </div>
     </AmplifyAuthenticator>
