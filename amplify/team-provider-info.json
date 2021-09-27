@@ -18,7 +18,7 @@
       "function": {
         "S3Trigger1144e468": {
           "deploymentBucketName": "amplify-inver-staging-14845-deployment",
-          "s3Key": "amplify-builds/S3Trigger1144e468-79654c526246354e5a47-build.zip"
+          "s3Key": "amplify-builds/S3Trigger1144e468-6477723449316c387868-build.zip"
         }
       }
     }

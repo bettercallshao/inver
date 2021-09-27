@@ -1,0 +1,17 @@
+type Box
+  @model
+  @auth(rules: [{ allow: owner }])
+  @key(fields: ["id", "tag"])
+  @key(
+    name: "ownerTag"
+    fields: ["owner", "tag"]
+    queryField: "queryOwnerTag"
+  ) {
+  id: ID!
+  tag: String!
+  owner: String
+  description: String
+  frontKey: String
+  backKey: String
+  keys: [String]
+}
