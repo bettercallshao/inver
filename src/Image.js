@@ -1,17 +1,20 @@
-import { AmplifyS3Image } from "@aws-amplify/ui-react";
-import { useState } from "react";
+import { Storage } from "@aws-amplify/storage";
+import { useState, useEffect } from "react";
 
 function Image({ imgKey, actions }) {
   const [dig, setDig] = useState(false);
   const [src, setSrc] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const url = await Storage.get(imgKey, { level: "private" });
+      setSrc(url);
+    })();
+  }, []);
   return (
     <div>
-      <AmplifyS3Image
-        level="private"
-        imgKey={imgKey}
-        handleOnLoad={(event) => {
-          setSrc(event.target.src);
-        }}
+      <img
+        className="image"
+        src={src}
         onClick={() => {
           setDig(!dig);
         }}
@@ -29,22 +32,6 @@ function Image({ imgKey, actions }) {
               {action.text}
             </button>
           ))}
-          {/* <button
-            className="button"
-            onClick={() => {
-              window.open(src);
-            }}
-          >
-            Open
-          </button>
-          <button
-            className="button"
-            onClick={() => {
-              Storage.remove(imgKey, { level: "private" }).then(handleDelete);
-            }}
-          >
-            Delete
-          </button> */}
         </div>
       )}
     </div>

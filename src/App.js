@@ -3,10 +3,9 @@ import useQState from "./useQState";
 import SearchPage from "./SearchPage";
 import DetailPage from "./DetailPage";
 
-import Amplify from "aws-amplify";
+import { Amplify, Auth } from "aws-amplify";
 import {
   AmplifyAuthenticator,
-  AmplifySignOut,
   AmplifySignUp,
   AmplifySignIn,
 } from "@aws-amplify/ui-react";
@@ -45,7 +44,14 @@ function App() {
         >
           Search
         </button>
-        <AmplifySignOut />
+        <button
+          className="button"
+          onClick={() => {
+            Auth.signOut();
+          }}
+        >
+          Sign Out
+        </button>
       </div>
       {box ? (
         <DetailPage box={box} setBox={setBox} />
