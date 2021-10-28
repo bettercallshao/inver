@@ -276,12 +276,6 @@
               "Function": {
                 "Ref": "functionS3Trigger1144e468Arn"
               }
-            },
-            {
-              "Event": "s3:ObjectRemoved:*",
-              "Function": {
-                "Ref": "functionS3Trigger1144e468Arn"
-              }
             }
           ]
         }
