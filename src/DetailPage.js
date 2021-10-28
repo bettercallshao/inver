@@ -53,6 +53,9 @@ function DetailPage({ box, setBox }) {
             await Storage.put(`${box}/${key}`, file, {
               level: "private",
             });
+            await Storage.put(`${box}/${key}.flag`, file, {
+              level: "private",
+            });
             pushDetail({ keys });
           }}
         />
