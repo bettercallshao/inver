@@ -10,12 +10,12 @@ exports.handler = async function (event) {
   console.log("Received S3 event:", JSON.stringify(event, null, 2));
   const bucket = event.Records[0].s3.bucket.name;
   const flag = decodeURIComponent(event.Records[0].s3.object.key);
-  console.log(`Bucket: ${bucket}`, `Flag: ${flag}`);
   if (!/\.flag$/.test(flag)) {
     console.log('Nothing to do');
     return;
   }
   try {
+    console.log(`Bucket: ${bucket}`, `Flag: ${flag}`);
     await S3.deleteObject({ Bucket: bucket, Key: flag }).promise();
     const key = flag.slice(0, -5);
     const data = await S3.getObject({ Bucket: bucket, Key: key }).promise();
