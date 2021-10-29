@@ -7,15 +7,16 @@ const width = 1000;
 
 // eslint-disable-next-line
 exports.handler = async function (event) {
-  console.log("Received S3 event:", JSON.stringify(event, null, 2));
+  if (event.Records[0].eventName !== 'ObjectCreated:Put') {
+    return;
+  }
   const bucket = event.Records[0].s3.bucket.name;
   const flag = decodeURIComponent(event.Records[0].s3.object.key);
   if (!/\.flag$/.test(flag)) {
-    console.log('Nothing to do');
     return;
   }
   try {
-    console.log(`Bucket: ${bucket}`, `Flag: ${flag}`);
+    console.log("Flag Created:", JSON.stringify(event, null, 2));
     await S3.deleteObject({ Bucket: bucket, Key: flag }).promise();
     const key = flag.slice(0, -5);
     const data = await S3.getObject({ Bucket: bucket, Key: key }).promise();
