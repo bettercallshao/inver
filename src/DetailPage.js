@@ -40,26 +40,6 @@ function DetailPage({ box, setBox }) {
   };
   return (
     <div>
-      <div>
-        <input
-          type="file"
-          accept="image/*"
-          capture="environment"
-          onChange={async (event) => {
-            const file = event.target.files[0];
-            const key = uuid();
-            const keys = detail.keys || [];
-            keys.push(key);
-            await Storage.put(`${box}/${key}`, file, {
-              level: "private",
-            });
-            await Storage.put(`${box}/${key}.flag`, file, {
-              level: "private",
-            });
-            pushDetail({ keys });
-          }}
-        />
-      </div>
       <div className="gallery">
         {detail &&
           detail.keys &&
@@ -92,9 +72,9 @@ function DetailPage({ box, setBox }) {
               ></Image>
             ))}
       </div>
-      <div>
+      <nav className="navbar fixed-bottom mb-5">
         <button
-          className="button"
+          className="btn btn-danger"
           onClick={async () => {
             const blobs = await Storage.list(box, { level: "private" });
             blobs.forEach((blob) => {
@@ -126,7 +106,28 @@ function DetailPage({ box, setBox }) {
         >
           Delete Box
         </button>
-      </div>
+        <form className="form-inline">
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            class="form-control"
+            onChange={async (event) => {
+              const file = event.target.files[0];
+              const key = uuid();
+              const keys = detail.keys || [];
+              keys.push(key);
+              await Storage.put(`${box}/${key}`, file, {
+                level: "private",
+              });
+              await Storage.put(`${box}/${key}.flag`, file, {
+                level: "private",
+              });
+              pushDetail({ keys });
+            }}
+          />
+        </form>
+      </nav>
     </div>
   );
 }

@@ -11,9 +11,9 @@ function Image({ imgKey, actions }) {
     })();
   }, []);
   return (
-    <div>
+    <div class="p-0">
       <img
-        className="image"
+        className="img-fluid border"
         src={src}
         onClick={() => {
           setDig(!dig);
@@ -24,7 +24,7 @@ function Image({ imgKey, actions }) {
           {actions.map((action) => (
             <button
               key={action.text}
-              className="button"
+              className="btn btn-primary m-1 float-end"
               onClick={() => {
                 action.cb({ imgKey, src });
               }}
