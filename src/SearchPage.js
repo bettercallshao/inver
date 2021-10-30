@@ -1,28 +1,13 @@
 import { API } from "aws-amplify";
 import { Auth } from "@aws-amplify/auth";
-import * as mutations from "./graphql/mutations";
 import * as queries from "./graphql/queries";
 import { useEffect, useState } from "react";
 import Image from "./Image";
-import useQState from "./useQState";
 
 const ALL = "all";
 
-function SearchPage({ setBox }) {
-  const newBox = async () => {
-    const newBox = await API.graphql({
-      query: mutations.createBox,
-      variables: {
-        input: {
-          tag: ALL,
-        },
-      },
-    });
-    setBox(newBox.data.createBox.id);
-  };
+function SearchPage({ setBox, tag }) {
   const [boxes, setBoxes] = useState([]);
-  const [tag, setTag] = useQState("tag", ALL);
-  const [input, setInput] = useState(tag);
   const [user, setUser] = useState(null);
   useEffect(() => {
     (async () => {
@@ -61,43 +46,19 @@ function SearchPage({ setBox }) {
     })();
   }, [tag, user]);
   return (
-    <div>
-      <div>
-        <button className="button" onClick={newBox}>
-          New Box
-        </button>
-      </div>
-      <div>
-        <input
-          type="text"
-          defaultValue={tag}
-          onChange={(event) => {
-            setInput(event.target.value);
-          }}
-        />
-        <button
-          className="button"
-          onClick={() => {
-            setTag(input);
-          }}
-        >
-          Search Tag
-        </button>
-      </div>
-      <div className="gallery">
-        {boxes.map((box) => (
-          <Image
-            key={box.id}
-            imgKey={`${box.id}/${box.frontKey}`}
-            actions={[
-              {
-                text: "Details",
-                cb: () => setBox(box.id),
-              },
-            ]}
-          ></Image>
-        ))}
-      </div>
+    <div className="gallery">
+      {boxes.map((box) => (
+        <Image
+          key={box.id}
+          imgKey={`${box.id}/${box.frontKey}`}
+          actions={[
+            {
+              text: "Details",
+              cb: () => setBox(box.id),
+            },
+          ]}
+        ></Image>
+      ))}
     </div>
   );
 }
