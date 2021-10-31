@@ -20,11 +20,11 @@ function Image({ imgKey, actions }) {
         }}
       />
       {dig && actions && (
-        <div>
+        <div class="d-flex justify-content-between">
           {actions.map((action) => (
             <button
               key={action.text}
-              className="btn btn-primary m-1 float-end"
+              className="btn btn-primary col-4"
               onClick={() => {
                 action.cb({ imgKey, src });
               }}

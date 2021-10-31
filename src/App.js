@@ -55,19 +55,19 @@ function App() {
       ) : (
         <SearchPage setBox={setBox} tag={tag} />
       )}
-      <nav class="navbar fixed-bottom p-0">
+      <nav className="navbar fixed-bottom p-2">
         <button
-          className="btn btn-danger"
+          className="btn btn-danger col-3 px-0"
           onClick={() => {
             Auth.signOut();
           }}
         >
-          Sign Out
+          Out
         </button>
-        <form className="form-inline">
+        <form className="form-inline col-3 px-0">
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             defaultValue={tag}
             onChange={(event) => {
               setInput(event.target.value);
@@ -75,7 +75,7 @@ function App() {
           />
         </form>
         <button
-          className="btn btn-primary"
+          className="btn btn-secondary col-3 px-0"
           onClick={() => {
             setTag(input);
             setBox("");
@@ -83,7 +83,7 @@ function App() {
         >
           Search
         </button>
-        <button className="btn btn-primary" onClick={newBox}>
+        <button className="btn btn-success col-3 px-0" onClick={newBox}>
           New
         </button>
       </nav>

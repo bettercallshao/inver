@@ -54,27 +54,25 @@ function DetailPage({ box, setBox }) {
                     text: "Delete",
                     cb: async () => {
                       const keys = detail.keys.filter((k) => k !== key);
+                      const frontKey =
+                        detail.frontKey !== key ? detail.frontKey : null;
                       await Storage.remove(`${box}/${key}`, {
                         level: "private",
                       });
-                      pushDetail({ keys });
+                      pushDetail({ keys, frontKey });
                     },
                   },
                   {
-                    text: "To Front",
+                    text: "Promote",
                     cb: async () => pushDetail({ frontKey: key }),
-                  },
-                  {
-                    text: "To Back",
-                    cb: async () => pushDetail({ backKey: key }),
                   },
                 ]}
               ></Image>
             ))}
       </div>
-      <nav className="navbar fixed-bottom mb-5">
+      <nav className="navbar fixed-bottom mb-5 p-2">
         <button
-          className="btn btn-danger"
+          className="btn btn-danger col-4 px-0"
           onClick={async () => {
             const blobs = await Storage.list(box, { level: "private" });
             blobs.forEach((blob) => {
@@ -104,9 +102,9 @@ function DetailPage({ box, setBox }) {
             setBox("");
           }}
         >
-          Delete Box
+          Delete
         </button>
-        <form className="form-inline">
+        <form className="form-inline col-4 px-0">
           <input
             type="file"
             accept="image/*"
@@ -117,13 +115,14 @@ function DetailPage({ box, setBox }) {
               const key = uuid();
               const keys = detail.keys || [];
               keys.push(key);
+              const frontKey = detail.frontKey || key;
               await Storage.put(`${box}/${key}`, file, {
                 level: "private",
               });
               await Storage.put(`${box}/${key}.flag`, file, {
                 level: "private",
               });
-              pushDetail({ keys });
+              pushDetail({ keys, frontKey });
             }}
           />
         </form>
