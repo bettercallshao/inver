@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import Image from "./Image";
 
+const ALL = "all";
+
 function DetailPage({ box, setBox }) {
   const [detail, setDetail] = useState(null);
   useEffect(() => {
@@ -14,7 +16,7 @@ function DetailPage({ box, setBox }) {
         query: queries.getBox,
         variables: {
           id: box,
-          tag: "all",
+          tag: ALL,
         },
       });
       setDetail(record.data.getBox);
@@ -26,7 +28,7 @@ function DetailPage({ box, setBox }) {
       variables: {
         input: {
           id: box,
-          tag: "all",
+          tag: ALL,
           ...record,
         },
       },
@@ -62,10 +64,14 @@ function DetailPage({ box, setBox }) {
                       pushDetail({ keys, frontKey });
                     },
                   },
-                  {
-                    text: "Promote",
-                    cb: async () => pushDetail({ frontKey: key }),
-                  },
+                  ...(key !== detail.frontKey
+                    ? [
+                        {
+                          text: "Promote",
+                          cb: async () => pushDetail({ frontKey: key }),
+                        },
+                      ]
+                    : []),
                 ]}
               ></Image>
             ))}
