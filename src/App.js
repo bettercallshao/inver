@@ -16,16 +16,18 @@ import * as mutations from "./graphql/mutations";
 
 Amplify.configure(awsconfig);
 
+const ALL = "all";
+
 function App() {
   const [box, setBox] = useQState("box", "");
-  const [tag, setTag] = useQState("tag", SearchPage.ALL);
+  const [tag, setTag] = useQState("tag", ALL);
   const [input, setInput] = useState(tag);
   const newBox = async () => {
     const newBox = await API.graphql({
       query: mutations.createBox,
       variables: {
         input: {
-          tag: SearchPage.ALL,
+          tag: ALL,
         },
       },
     });
