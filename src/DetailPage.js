@@ -115,7 +115,7 @@ function DetailPage({ box, setBox }) {
             type="file"
             accept="image/*"
             capture="environment"
-            class="form-control"
+            className="form-control"
             onChange={async (event) => {
               const file = event.target.files[0];
               const key = uuid();
