@@ -39,7 +39,8 @@ function SearchPage({ setBox, tag }) {
             },
           },
         });
-        setBoxes(listResult.data.listBoxes.items);
+        setBoxes(listResult.data.listBoxes.items.sort((b1, b2) => 
+          new Date(b2.updatedAt).getTime() - new Date(b1.updatedAt).getTime()));
       } else {
         setBoxes([]);
       }
